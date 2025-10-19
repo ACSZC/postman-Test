@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "9614c243-7efd-4f01-8b80-ebe20bbc4192",
+		"name": "Real-User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49369511",
+		"_collection_link": "https://zhaoxyu-8400771.postman.co/workspace/zhaoxyu's-Workspace~40b7789f-b36a-46a1-8673-b7e7ba3f4a5f/collection/49369511-9614c243-7efd-4f01-8b80-ebe20bbc4192?action=share&source=collection_link&creator=49369511"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseData = pm.response.json();",
+							"if (responseData.data && responseData.data.length > 0) {",
+							"               // 获取第一个用户的 ID",
+							"               const firstUserId = responseData.data[0].id;",
+							"     ",
+							"               console.log(\"Found user ID:\", firstUserId); // ",
+							"      //在控制台打印ID，方便调试",
+							"   ",
+							"                // 将这个真实存在的 ID 保存到集合变量中",
+							"              pm.collectionVariables.set(\"realUserId\", firstUserId);",
+							"                pm.test(\"Found a list of users\", function() {",
+							"                  pm.expect(responseData.data).to.be.an('array');",
+							"             });",
+							"}    "
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-api-key",
+						"value": "reqres-free-v1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=1",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" const responseData = pm.response.json();",
+							"             // 获取我们请求时使用的 ID",
+							"           const requestedId = pm.collectionVariables.get(\"realUserId\"",
+							"      );",
+							"             pm.test(\"User ID matches the requested ID\", function () {",
+							"                // 验证返回的用户数据中，id 是否与我们请求的 id 一致",
+							"              pm.expect(responseData.data.id).to.eql(parseInt",
+							"      (requestedId));",
+							"            });",
+							"         pm.test(\"Response contains user data\", function() {",
+							"             pm.expect(responseData.data).to.have.property('email');",
+							"              pm.expect(responseData.data).to.have.property(",
+							"      'first_name');",
+							"          })"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-api-key",
+						"value": "reqres-free-v1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://reqres.in/api/users/{{realUserId}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{realUserId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "realUserId",
+			"value": ""
+		}
+	]
+}

@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "6ac0f3c9-4ac3-4041-945e-e6ac8093c7e9",
+		"name": "AutoTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49369511",
+		"_collection_link": "https://zhaoxyu-8400771.postman.co/workspace/zhaoxyu's-Workspace~40b7789f-b36a-46a1-8673-b7e7ba3f4a5f/collection/49369511-6ac0f3c9-4ac3-4041-945e-e6ac8093c7e9?action=share&source=collection_link&creator=49369511"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",function(){",
+							"      pm.response.to.have.status(200);",
+							"  });",
+							"  pm.test(\"Response time is less than 500ms\", function () {",
+							"      pm.expect(pm.response.responseTime).to.be.below(500);",
+							"  })",
+							"  pm.test(\"Response is a json\", function () {",
+							"      pm.response.to.be.json;})",
+							"  pm.test(\"Body matchs string\",function(){",
+							"      const jsonData = pm.response.json();",
+							"      pm.expect(jsonData.page).to.eql(2)",
+							"      pm.expect(jsonData.data).to.be.an(\"array\")",
+							"      pm.expect(jsonData.data.length).to.be.above(0)",
+							"  })"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",function(){",
+							"      pm.response.to.have.status(200);",
+							"  });",
+							"  pm.test(\"Response time is less than 2000ms\", function () {",
+							"      pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"  })",
+							"  pm.test(\"Response is a json\", function () {",
+							"      pm.response.to.be.json;})",
+							"  pm.test(\"Body matchs string\",function(){",
+							"      const jsonData = pm.response.json();",
+							"      pm.expect(jsonData.page).to.eql(2)",
+							"      pm.expect(jsonData.data).to.be.an(\"array\")",
+							"      pm.expect(jsonData.data.length).to.be.above(0)",
+							"  })"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://book.qq.com/book-read/45420986/1344",
+					"protocol": "https",
+					"host": [
+						"book",
+						"qq",
+						"com"
+					],
+					"path": [
+						"book-read",
+						"45420986",
+						"1344"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
